@@ -121,21 +121,55 @@
         }
         
         header { background: var(--dark); color: white; padding: 20px; text-align: center; position: relative; z-index: 1; }
+        
+        /* Navigation */
+        nav {
+            background: #2a2a2a;
+            padding: 15px 0;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 5px;
+            display: inline-block;
+            transition: background 0.3s;
+            cursor: pointer;
+        }
+        nav a:hover, nav a.active {
+            background: var(--primary);
+        }
+        
         .container { position: relative; z-index: 1; }
         .container { max-width: 1000px; margin: auto; padding: 20px; }
         h2 { border-bottom: 2px solid var(--primary); padding-bottom: 10px; margin-top: 40px; }
         
+        /* Page Sections */
+        .page-section {
+            display: none;
+        }
+        .page-section.active {
+            display: block;
+        }
+        
         /* Grid Layout */
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; }
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; transition: transform 0.3s; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
         .card img { max-width: 80px; height: 80px; object-fit: contain; margin-bottom: 10px; }
         .price { font-size: 1.5rem; color: #28a745; font-weight: bold; margin: 10px 0; }
-        button { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; width: 100%; }
+        button { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; width: 100%; transition: background 0.3s; }
         button:hover { background: #0056b3; }
         
         /* Account Details Styles */
         .details { text-align: left; font-size: 0.9rem; background: #f9f9f9; padding: 10px; border-radius: 5px; }
-        .badge { background: var(--gold); color: black; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.8rem; }
+        .badge { background: var(--gold); color: black; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.8rem; display: inline-block; margin-bottom: 10px; }
+        .legendary { background: linear-gradient(45deg, #ff6b6b, #ffd93d); }
+        .mythical { background: linear-gradient(45deg, #a29bfe, #fd79a8); }
         
         /* Payment Modal */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; overflow-y: auto; padding: 10px; }
@@ -176,7 +210,7 @@
             color: #2e7d32;
         }
         
-        /* Offer Banner - Fixed for Mobile */
+        /* Offer Banner */
         .offer-banner { 
             background: #1a1a1a; 
             color: white; 
@@ -242,6 +276,12 @@
             margin-top: 10px;
         }
         
+        /* Fruits Page Specific Styles */
+        #fruitsPage .card img { 
+            max-width: 100px; 
+            height: 100px; 
+        }
+        
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .floating-kitsune-1, .floating-kitsune-2 {
@@ -256,10 +296,17 @@
                 opacity: 0.05;
             }
             
+            nav a {
+                padding: 8px 15px;
+                margin: 5px;
+                font-size: 0.9rem;
+            }
+            
             .container { padding: 15px; }
             .grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; }
             .card { padding: 15px; }
             .card img { max-width: 60px; height: 60px; }
+            #fruitsPage .card img { max-width: 70px; height: 70px; }
             h2 { font-size: 1.3rem; margin-top: 30px; }
             
             .offer-banner { 
@@ -322,143 +369,202 @@
     <p>Premium Digital Goods & Accounts</p>
 </header>
 
+<nav>
+    <a onclick="showPage('home')" id="homeNav" class="active">Home</a>
+    <a onclick="showPage('fruits')" id="fruitsNav">Fruits & Items</a>
+</nav>
+
 <div class="container">
     
-    <!-- Limited Offer Banner -->
-    <div class="offer-banner">
-        <h2>🎉 Limited Website Opening Offer! 🎉</h2>
-        <p>Exclusive Launch Deal - Don't Miss Out!</p>
-        <div class="offer-card">
-            <img src="robux.png" alt="Robux">
-            <h3>800 Robux</h3>
-            <p class="old-price">Rs. 960</p>
-            <p class="price">Rs. 500</p>
-            <p class="savings">💥 Save Rs. 460!</p>
-            <button onclick="showPayment('800 Robux (Limited Offer)', '500')">Grab This Deal Now!</button>
+    <!-- HOME PAGE -->
+    <div id="homePage" class="page-section active">
+        <!-- Limited Offer Banner -->
+        <div class="offer-banner">
+            <h2>🎉 Limited Website Opening Offer! 🎉</h2>
+            <p>Exclusive Launch Deal - Don't Miss Out!</p>
+            <div class="offer-card">
+                <img src="robux.png" alt="Robux">
+                <h3>800 Robux</h3>
+                <p class="old-price">Rs. 960</p>
+                <p class="price">Rs. 500</p>
+                <p class="savings">💥 Save Rs. 460!</p>
+                <button onclick="showPayment('800 Robux (Limited Offer)', '500')">Grab This Deal Now!</button>
+            </div>
+        </div>
+        
+        <h2>Robux Top-Up (120 NPR per 100)</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="robux.png" alt="Robux">
+                <h3>100 Robux</h3>
+                <p class="price">Rs. 120</p>
+                <button onclick="showPayment('100 Robux', '120')">Buy Now</button>
+            </div>
+            <div class="card">
+                <img src="robux.png" alt="Robux">
+                <h3>200 Robux</h3>
+                <p class="price">Rs. 240</p>
+                <button onclick="showPayment('200 Robux', '240')">Buy Now</button>
+            </div>
+            <div class="card">
+                <img src="robux.png" alt="Robux">
+                <h3>300 Robux</h3>
+                <p class="price">Rs. 360</p>
+                <button onclick="showPayment('300 Robux', '360')">Buy Now</button>
+            </div>
+            <div class="card">
+                <img src="robux.png" alt="Robux">
+                <h3>400 Robux</h3>
+                <p class="price">Rs. 480</p>
+                <button onclick="showPayment('400 Robux', '480')">Buy Now</button>
+            </div>
+            <div class="card">
+                <img src="robux.png" alt="Robux">
+                <h3>500 Robux</h3>
+                <p class="price">Rs. 600</p>
+                <button onclick="showPayment('500 Robux', '600')">Buy Now</button>
+            </div>
+            <div class="card">
+                <img src="robux.png" alt="Robux">
+                <h3>600 Robux</h3>
+                <p class="price">Rs. 720</p>
+                <button onclick="showPayment('600 Robux', '720')">Buy Now</button>
+            </div>
+            <div class="card">
+                <img src="robux.png" alt="Robux">
+                <h3>700 Robux</h3>
+                <p class="price">Rs. 840</p>
+                <button onclick="showPayment('700 Robux', '840')">Buy Now</button>
+            </div>
+            <div class="card">
+                <img src="robux.png" alt="Robux">
+                <h3>800 Robux</h3>
+                <p class="price">Rs. 960</p>
+                <button onclick="showPayment('800 Robux', '960')">Buy Now</button>
+            </div>
+            <div class="card">
+                <img src="robux.png" alt="Robux">
+                <h3>900 Robux</h3>
+                <p class="price">Rs. 1,080</p>
+                <button onclick="showPayment('900 Robux', '1,080')">Buy Now</button>
+            </div>
+            <div class="card">
+                <img src="robux.png" alt="Robux">
+                <h3>1000 Robux</h3>
+                <p class="price">Rs. 1,200</p>
+                <button onclick="showPayment('1000 Robux', '1,200')">Buy Now</button>
+            </div>
+        </div>
+
+        <h2>Roblox Premium</h2>
+        <div class="grid">
+            <div class="card" style="border: 2px solid var(--primary);">
+                <img src="premium.png" alt="Premium">
+                <h3>Premium Membership</h3>
+                <p>Full Access & Monthly Allowance</p>
+                <p class="price">Rs. 1,000</p>
+                <button onclick="showPayment('Premium Membership', '1,000')">Get Premium</button>
+            </div>
+        </div>
+
+        <h2>Blox Fruit High-Tier Accounts</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="bloxfruit.png" alt="Blox Fruit">
+                <span class="badge">ULTRA RARE</span>
+                <h3>BF Account #1</h3>
+                <div class="details">
+                    <ul>
+                        <li>30M Bounty</li>
+                        <li>All V4 Races Unlocked</li>
+                        <li>Perm Dragon & Kitsune (Used)</li>
+                        <li>Avatar: +9000 Robux Value</li>
+                    </ul>
+                </div>
+                <p class="price">Rs. 900</p>
+                <button onclick="showPayment('BF Account #1', '900')">Buy Now</button>
+            </div>
+            <div class="card">
+                <img src="bloxfruit.png" alt="Blox Fruit">
+                <span class="badge">ULTRA RARE</span>
+                <h3>BF Account #2</h3>
+                <div class="details">
+                    <ul>
+                        <li>5M Bounty</li>
+                        <li>5 V4's Max</li>
+                        <li>All Fruits Awakening</li>
+                        <li>Sharkanchor and More</li>
+                    </ul>
+                </div>
+                <p class="price">Rs. 500</p>
+                <button onclick="showPayment('BF Account #2', '500')">Buy Now</button>
+            </div>
+            <div class="card">
+                <img src="bloxfruit.png" alt="Blox Fruit">
+                <span class="badge">ULTRA RARE</span>
+                <h3>BF Account #3</h3>
+                <div class="details">
+                    <ul>
+                        <li>3M Bounty</li>
+                        <li>3 V4's</li>
+                        <li>High Grind</li>
+                        <li>Third Sea</li>
+                    </ul>
+                </div>
+                <p class="price">Rs. 350</p>
+                <button onclick="showPayment('BF Account #3', '350')">Buy Now</button>
+            </div>
         </div>
     </div>
     
-    <h2>Robux Top-Up (120 NPR per 100)</h2>
-    <div class="grid">
-        <div class="card">
-            <img src="robux.png" alt="Robux">
-            <h3>100 Robux</h3>
-            <p class="price">Rs. 120</p>
-            <button onclick="showPayment('100 Robux', '120')">Buy Now</button>
-        </div>
-        <div class="card">
-            <img src="robux.png" alt="Robux">
-            <h3>200 Robux</h3>
-            <p class="price">Rs. 240</p>
-            <button onclick="showPayment('200 Robux', '240')">Buy Now</button>
-        </div>
-        <div class="card">
-            <img src="robux.png" alt="Robux">
-            <h3>300 Robux</h3>
-            <p class="price">Rs. 360</p>
-            <button onclick="showPayment('300 Robux', '360')">Buy Now</button>
-        </div>
-        <div class="card">
-            <img src="robux.png" alt="Robux">
-            <h3>400 Robux</h3>
-            <p class="price">Rs. 480</p>
-            <button onclick="showPayment('400 Robux', '480')">Buy Now</button>
-        </div>
-        <div class="card">
-            <img src="robux.png" alt="Robux">
-            <h3>500 Robux</h3>
-            <p class="price">Rs. 600</p>
-            <button onclick="showPayment('500 Robux', '600')">Buy Now</button>
-        </div>
-        <div class="card">
-            <img src="robux.png" alt="Robux">
-            <h3>600 Robux</h3>
-            <p class="price">Rs. 720</p>
-            <button onclick="showPayment('600 Robux', '720')">Buy Now</button>
-        </div>
-        <div class="card">
-            <img src="robux.png" alt="Robux">
-            <h3>700 Robux</h3>
-            <p class="price">Rs. 840</p>
-            <button onclick="showPayment('700 Robux', '840')">Buy Now</button>
-        </div>
-        <div class="card">
-            <img src="robux.png" alt="Robux">
-            <h3>800 Robux</h3>
-            <p class="price">Rs. 960</p>
-            <button onclick="showPayment('800 Robux', '960')">Buy Now</button>
-        </div>
-        <div class="card">
-            <img src="robux.png" alt="Robux">
-            <h3>900 Robux</h3>
-            <p class="price">Rs. 1,080</p>
-            <button onclick="showPayment('900 Robux', '1,080')">Buy Now</button>
-        </div>
-        <div class="card">
-            <img src="robux.png" alt="Robux">
-            <h3>1000 Robux</h3>
-            <p class="price">Rs. 1,200</p>
-            <button onclick="showPayment('1000 Robux', '1,200')">Buy Now</button>
-        </div>
-    </div>
-
-    <h2>Roblox Premium</h2>
-    <div class="grid">
-        <div class="card" style="border: 2px solid var(--primary);">
-            <img src="premium.png" alt="Premium">
-            <h3>Premium Membership</h3>
-            <p>Full Access & Monthly Allowance</p>
-            <p class="price">Rs. 1,000</p>
-            <button onclick="showPayment('Premium Membership', '1,000')">Get Premium</button>
-        </div>
-    </div>
-
-    <h2>Blox Fruit High-Tier Accounts</h2>
-    <div class="grid">
-        <div class="card">
-            <img src="bloxfruit.png" alt="Blox Fruit">
-            <span class="badge">ULTRA RARE</span>
-            <h3>BF Account #1</h3>
-            <div class="details">
-                <ul>
-                    <li>30M Bounty</li>
-                    <li>All V4 Races Unlocked</li>
-                    <li>Perm Dragon & Kitsune (Used)</li>
-                    <li>Avatar: +9000 Robux Value</li>
-                </ul>
+    <!-- FRUITS & ITEMS PAGE -->
+    <div id="fruitsPage" class="page-section">
+        <h2>🍎 Premium Blox Fruits</h2>
+        <div class="grid">
+            <div class="card">
+                <span class="badge legendary">LEGENDARY</span>
+                <img src="dragon.png" alt="Dragon">
+                <h3>Dragon (West)</h3>
+                <p>One of the most powerful fruits!</p>
+                <p class="price">Rs. 1,500</p>
+                <button onclick="showPayment('Dragon (West)', '1,500')">Buy Now</button>
             </div>
-            <p class="price">Rs. 900</p>
-            <button onclick="showPayment('BF Account #1', '900')">Buy Now</button>
-        </div>
-        <div class="card">
-            <img src="bloxfruit.png" alt="Blox Fruit">
-            <span class="badge">ULTRA RARE</span>
-            <h3>BF Account #2</h3>
-            <div class="details">
-                <ul>
-                    <li>5M Bounty</li>
-                    <li>5 V4's Max</li>
-                    <li>All Fruits Awakening</li>
-                    <li>Sharkanchor and More</li>
-                </ul>
+            
+            <div class="card">
+                <span class="badge mythical">MYTHICAL</span>
+                <img src="kitsune.png" alt="Kitsune">
+                <h3>Kitsune</h3>
+                <p>Rare mythical transformation fruit</p>
+                <p class="price">Rs. 400</p>
+                <button onclick="showPayment('Kitsune', '400')">Buy Now</button>
             </div>
-            <p class="price">Rs. 500</p>
-            <button onclick="showPayment('BF Account #2', '500')">Buy Now</button>
-        </div>
-        <div class="card">
-            <img src="bloxfruit.png" alt="Blox Fruit">
-            <span class="badge">ULTRA RARE</span>
-            <h3>BF Account #3</h3>
-            <div class="details">
-                <ul>
-                    <li>3M Bounty</li>
-                    <li>3 V4's</li>
-                    <li>High Grind</li>
-                    <li>Third Sea</li>
-                </ul>
+            
+            <div class="card">
+                <span class="badge legendary">LEGENDARY</span>
+                <img src="tiger.png" alt="Tiger">
+                <h3>Tiger</h3>
+                <p>Powerful beast-type fruit</p>
+                <p class="price">Rs. 300</p>
+                <button onclick="showPayment('Tiger', '300')">Buy Now</button>
             </div>
-            <p class="price">Rs. 350</p>
-            <button onclick="showPayment('BF Account #3', '350')">Buy Now</button>
+            
+            <div class="card">
+                <span class="badge legendary">LEGENDARY</span>
+                <img src="yeti.png" alt="Yeti">
+                <h3>Yeti</h3>
+                <p>Ice-based legendary fruit</p>
+                <p class="price">Rs. 200</p>
+                <button onclick="showPayment('Yeti', '200')">Buy Now</button>
+            </div>
+            
+            <div class="card">
+                <span class="badge">RARE</span>
+                <img src="control.png" alt="Control">
+                <h3>Control</h3>
+                <p>Manipulate your enemies</p>
+                <p class="price">Rs. 150</p>
+                <button onclick="showPayment('Control', '150')">Buy Now</button>
+            </div>
         </div>
     </div>
 
@@ -488,6 +594,32 @@
 </div>
 
 <script>
+    // Page Navigation
+    function showPage(pageName) {
+        // Hide all pages
+        document.querySelectorAll('.page-section').forEach(page => {
+            page.classList.remove('active');
+        });
+        
+        // Remove active class from all nav links
+        document.querySelectorAll('nav a').forEach(link => {
+            link.classList.remove('active');
+        });
+        
+        // Show selected page
+        if (pageName === 'home') {
+            document.getElementById('homePage').classList.add('active');
+            document.getElementById('homeNav').classList.add('active');
+        } else if (pageName === 'fruits') {
+            document.getElementById('fruitsPage').classList.add('active');
+            document.getElementById('fruitsNav').classList.add('active');
+        }
+        
+        // Scroll to top
+        window.scrollTo(0, 0);
+    }
+    
+    // Payment Modal
     function showPayment(productName, price) {
         document.getElementById('productName').textContent = productName;
         document.getElementById('productPrice').textContent = price;
